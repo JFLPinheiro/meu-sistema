@@ -1173,16 +1173,15 @@ function gerarPDF() {
 }
 
 function nomeArquivo(dados) {
-  const paciente = dados.paciente
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-zA-Z0-9]+/g, "_")
-    .replace(/^_+|_+$/g, "");
+  const meses = {
+    JANEIRO: "JAN", FEVEREIRO: "FEV", "MARÇO": "MAR",
+    ABRIL: "ABR", MAIO: "MAI", JUNHO: "JUN",
+    JULHO: "JUL", AGOSTO: "AGO", SETEMBRO: "SET",
+    OUTUBRO: "OUT", NOVEMBRO: "NOV", DEZEMBRO: "DEZ"
+  };
 
-  return (
-    `Registro_Atendimento_${paciente}_` +
-    `${dados.mes}_${dados.ano}.pdf`
-  );
+  const paciente = dados.paciente.trim().toUpperCase();
+  return `${paciente} ${meses[dados.mes]}.${dados.ano}.pdf`;
 }
 
 async function salvarPDF() {
